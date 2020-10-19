@@ -22,7 +22,7 @@ namespace Assets.Classes
         /// <summary>
         /// Size of mob
         /// </summary>
-        public float size = 0.5f;
+        public float size = 0.75f;
         /// <summary>
         /// Level of mob (impact damage and life)
         /// </summary>

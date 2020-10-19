@@ -1161,6 +1161,7 @@ MonoBehaviour:
   prefab: {fileID: 9119678124956143338, guid: ae34ce4f6ba89bd4791cbc2a8ecc431f, type: 3}
   minRadius: 10
   maxRadius: 15
+  secondsBetweenWave: 5
 --- !u!4 &1634981040
 Transform:
   m_ObjectHideFlags: 0
