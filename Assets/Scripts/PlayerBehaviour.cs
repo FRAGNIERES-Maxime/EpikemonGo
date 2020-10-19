@@ -8,7 +8,7 @@ public class PlayerBehaviour : MonoBehaviour
     /// <summary>
     /// Property to store player life points
     /// </summary>
-    public int initialLife = 10;
+    public int initialLife = 150;
     /// <summary>
     /// Property to store player life points
     /// </summary>

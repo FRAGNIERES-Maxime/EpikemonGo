@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using Assets.Classes;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -33,6 +35,7 @@ public class WavesBehaviour : MonoBehaviour
 
     private int actualLevel = 1;
     private DateTime lastSpawnTime;
+    private int minimumTimeBetweenWave = 5;
 
     #endregion
 
@@ -54,8 +57,8 @@ public class WavesBehaviour : MonoBehaviour
         {
             return;
         }
-        var difficulty = secondsBetweenWave - actualLevel;
-        if ((DateTime.Now - lastSpawnTime).TotalSeconds >= (difficulty < 3 ? 3 : difficulty))
+        var difficulty = secondsBetweenWave - (0.75 + (actualLevel / 2));
+        if ((DateTime.Now - lastSpawnTime).TotalSeconds > (difficulty > minimumTimeBetweenWave ? difficulty : minimumTimeBetweenWave))
         {
             AddNewWave(players[0].transform);
         }
@@ -68,16 +71,46 @@ public class WavesBehaviour : MonoBehaviour
     public void AddNewWave(Transform target)
     {
         lastSpawnTime = DateTime.Now;
-        for (int i = 0; i < actualLevel; i++)
+        for (int i = 0; i < (0.75 + (actualLevel / 2)); i++)
         {
-            Vector3 point = RandomPointInAnnulus(target.position, minRadius, maxRadius);
-            var mobBehaviour = prefab.GetComponent<MobBehaviour>();
-            mobBehaviour.target = target;
-            mobBehaviour.level = actualLevel;
-            Instantiate(prefab, point, prefab.transform.rotation);
+            GenerateMob(target);
         }
 
+        if (actualLevel % 5 == 0)
+        {
+            var bossLevel = actualLevel / 5;
+            for (int i = 0; i < bossLevel; i++)
+            {
+                GenerateMob(target, bossLevel);
+            }
+        }
         actualLevel++;
+    }
+
+    /// <summary>
+    /// Generate a mob with focus on target
+    /// if boss level != 0
+    /// then update size and level
+    /// else just update level
+    /// </summary>
+    /// <param name="target"></param>
+    /// <param name="bossLevel"></param>
+    /// <param name="isBoss"></param>
+    private void GenerateMob(Transform target, int bossLevel = 0)
+    {
+        Vector3 point = RandomPointInAnnulus(target.position, minRadius, maxRadius);
+        var newMob = Instantiate(prefab, point, prefab.transform.rotation);
+        var mobBehaviour = newMob.GetComponent<MobBehaviour>();
+        mobBehaviour.target = target;
+        if (bossLevel != 0)
+        {
+            mobBehaviour.size += actualLevel / 10f;
+            mobBehaviour.level += bossLevel;
+        }
+        else
+        {
+            mobBehaviour.level = actualLevel;
+        }
     }
 
     /// <summary>
@@ -87,7 +120,7 @@ public class WavesBehaviour : MonoBehaviour
     /// <param name="minRadius">Min radius arround player</param>
     /// <param name="maxRadius">Max radius arround player</param>
     /// <returns></returns>
-    public Vector3 RandomPointInAnnulus(Vector2 origin, float minRadius, float maxRadius)
+    private Vector3 RandomPointInAnnulus(Vector2 origin, float minRadius, float maxRadius)
     {
         var randomDirection = (Random.insideUnitCircle * origin).normalized;
         var randomDistance = Random.Range(minRadius, maxRadius);
