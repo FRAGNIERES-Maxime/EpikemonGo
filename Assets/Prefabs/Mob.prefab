@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 4367775956180369948}
   - component: {fileID: 7752308988608059393}
   - component: {fileID: 6745045031077553313}
-  - component: {fileID: 5181296274504739497}
+  - component: {fileID: 5302583227413116421}
   m_Layer: 0
-  m_Name: Mob1
+  m_Name: Mob
   m_TagString: Mob
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -112,7 +112,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &5181296274504739497
+--- !u!114 &5302583227413116421
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -121,8 +121,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 9119678124956143338}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72feb00aa9f99e047afbfdaf7b687044, type: 3}
+  m_Script: {fileID: 11500000, guid: d19b2847550cb134ea1313c9dafd66f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  name: Undefined
   speed: 1
+  size: 0.75
+  level: 1
   target: {fileID: 0}

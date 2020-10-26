@@ -1,20 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Assets.Classes;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class PlayerBehaviour : MonoBehaviour
 {
     /// <summary>
     /// Property to store player life points
     /// </summary>
-    public int life = 10;
+    public int initialLife = 150;
+    /// <summary>
+    /// Property to store player life points
+    /// </summary>
+    private int currentLife;
 
     /// <summary>
     /// Method called when Player object is loaded
     /// </summary>
     void Start()
     {
-        
+        currentLife = initialLife;
     }
 
     /// <summary>
@@ -25,21 +30,25 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Mob"))
         {
-            var mob = other.GetComponent<BasicMob>();
+            var mob = other.GetComponent<MobBehaviour>();
             if (mob != null)
             {
-                GetDamage(mob);
+                LoseLife(mob.GetDamage());
             }
             other.gameObject.SetActive(false);
         }
     }
 
     /// <summary>
-    /// Get damage from mob
+    /// Method to lose life of a value
     /// </summary>
-    /// <param name="mob">Mob hited by</param>
-    private void GetDamage(BasicMob mob)
+    /// <param name="value">Value to lose</param>
+    public void LoseLife(int value)
     {
-        life -= mob.damage;
+        currentLife -= value;
+        if (currentLife <= 0)
+        {
+            gameObject.SetActive(false);
+        }
     }
 }
