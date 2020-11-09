@@ -14,7 +14,9 @@ public class PlayerBehaviour : MonoBehaviour
     /// Property to store player life points
     /// </summary>
     private int currentLife;
-
+    /// <summary>
+    /// Represent the game health bar
+    /// </summary>
     public HealthBar healthBar;
 
     /// <summary>
@@ -56,7 +58,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             gameObject.SetActive(false);
             Destroy(gameObject);
-            SceneManager.LoadScene("Menu");  
+            SceneManager.LoadScene("Menu");
         }
     }
 }

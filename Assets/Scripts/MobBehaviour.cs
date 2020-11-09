@@ -14,7 +14,7 @@ namespace Assets.Classes
         /// <summary>
         /// Name of mob
         /// </summary>
-        public string name = "Undefined";
+        public new string name = "Undefined";
         /// <summary>
         /// Speed of mob
         /// </summary>
@@ -31,6 +31,10 @@ namespace Assets.Classes
         /// Set target of mob
         /// </summary>
         public Transform target;
+        /// <summary>
+        /// Represent the game health bar
+        /// </summary>
+        public HealthBar healthBar;
 
         #endregion
 
@@ -53,6 +57,7 @@ namespace Assets.Classes
         void Start()
         {
             currentLife = initialLife;
+            healthBar.SetMaxHealth(initialLife);
             gameObject.transform.localScale = new Vector3(size, size, size);
         }
 
@@ -61,7 +66,10 @@ namespace Assets.Classes
         /// </summary>
         void Update()
         {
-            transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+            if (target != null)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+            }
         }
 
         /// <summary>
@@ -80,9 +88,11 @@ namespace Assets.Classes
         public void LoseLife(int value)
         {
             currentLife -= value;
+            healthBar.SetHealth(currentLife);
             if (currentLife <= 0)
             {
                 gameObject.SetActive(false);
+                Destroy(gameObject);
             }
         }
     }
