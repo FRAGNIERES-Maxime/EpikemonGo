@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Assets.Classes;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerBehaviour : MonoBehaviour
 {
@@ -36,6 +37,7 @@ public class PlayerBehaviour : MonoBehaviour
                 LoseLife(mob.GetDamage());
             }
             other.gameObject.SetActive(false);
+            Destroy(other.gameObject);
         }
     }
 
@@ -49,6 +51,8 @@ public class PlayerBehaviour : MonoBehaviour
         if (currentLife <= 0)
         {
             gameObject.SetActive(false);
+            Destroy(gameObject);
+            SceneManager.LoadScene("Menu");
         }
     }
 }
