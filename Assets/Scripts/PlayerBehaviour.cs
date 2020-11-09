@@ -15,12 +15,15 @@ public class PlayerBehaviour : MonoBehaviour
     /// </summary>
     private int currentLife;
 
+    public HealthBar healthBar;
+
     /// <summary>
     /// Method called when Player object is loaded
     /// </summary>
     void Start()
     {
         currentLife = initialLife;
+        healthBar.SetMaxHealth(initialLife);
     }
 
     /// <summary>
@@ -48,11 +51,12 @@ public class PlayerBehaviour : MonoBehaviour
     public void LoseLife(int value)
     {
         currentLife -= value;
+        healthBar.SetHealth(currentLife);
         if (currentLife <= 0)
         {
             gameObject.SetActive(false);
             Destroy(gameObject);
-            SceneManager.LoadScene("Menu");
+            SceneManager.LoadScene("Menu");  
         }
     }
 }
