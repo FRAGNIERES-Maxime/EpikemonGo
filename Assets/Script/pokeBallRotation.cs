@@ -11,7 +11,6 @@ public class pokeBallRotation : MonoBehaviour
     public float amplitude = 1f;
     public float speed = 1f;
 
-    private bool positionUp = false;
     private float startPosY;
     private Vector3 newPos;
 
