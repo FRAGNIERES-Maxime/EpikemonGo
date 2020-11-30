@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using Assets.Classes;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class WavesBehaviour : MonoBehaviour
@@ -28,6 +29,10 @@ public class WavesBehaviour : MonoBehaviour
     /// Time (in seconds) between two waves
     /// </summary>
     public int secondsBetweenWave = 15;
+    /// <summary>
+    /// Set text UI for wave value
+    /// </summary>
+    public Text waveValue;
 
     #endregion
 
@@ -71,6 +76,7 @@ public class WavesBehaviour : MonoBehaviour
     public void AddNewWave(Transform target)
     {
         lastSpawnTime = DateTime.Now;
+        waveValue.text = actualLevel.ToString();
         for (int i = 0; i < (0.75 + (actualLevel / 2)); i++)
         {
             GenerateMob(target);
