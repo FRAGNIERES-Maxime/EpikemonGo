@@ -1707,8 +1707,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 9119678124956143338, guid: ae34ce4f6ba89bd4791cbc2a8ecc431f, type: 3}
-  minRadius: 20
-  maxRadius: 30
+  minRadius: 35
+  maxRadius: 50
   secondsBetweenWave: 15
   waveValue: {fileID: 577058858}
 --- !u!4 &1634981040
