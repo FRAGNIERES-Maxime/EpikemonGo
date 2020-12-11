@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -14,7 +16,7 @@ namespace Assets.Classes
         /// <summary>
         /// Name of mob
         /// </summary>
-        public new string name = "Undefined";
+        public string name = "Undefined";
         /// <summary>
         /// Speed of mob
         /// </summary>
@@ -31,10 +33,6 @@ namespace Assets.Classes
         /// Set target of mob
         /// </summary>
         public Transform target;
-        /// <summary>
-        /// Represent the game health bar
-        /// </summary>
-        public HealthBar healthBar;
 
         #endregion
 
@@ -57,7 +55,6 @@ namespace Assets.Classes
         void Start()
         {
             currentLife = initialLife;
-            healthBar.SetMaxHealth(initialLife);
             gameObject.transform.localScale = new Vector3(size, size, size);
         }
 
@@ -66,10 +63,9 @@ namespace Assets.Classes
         /// </summary>
         void Update()
         {
-            if (target != null)
-            {
-                transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
-            }
+            transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+            transform.LookAt(target);
+            //transform.Rotate() = new Vector3(transform.eulerAngles.x - 90, transform.eulerAngles.y, transform.eulerAngles.z);
         }
 
         /// <summary>
@@ -88,11 +84,9 @@ namespace Assets.Classes
         public void LoseLife(int value)
         {
             currentLife -= value;
-            healthBar.SetHealth(currentLife);
             if (currentLife <= 0)
             {
                 gameObject.SetActive(false);
-                Destroy(gameObject);
             }
         }
     }
