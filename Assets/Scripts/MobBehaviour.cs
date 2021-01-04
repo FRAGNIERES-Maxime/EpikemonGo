@@ -86,7 +86,8 @@ namespace Assets.Classes
             currentLife -= value;
             if (currentLife <= 0)
             {
-                gameObject.SetActive(false);
+                //gameObject.SetActive(false);
+                gameObject.Destroy();
             }
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Assets.Classes;
 using UnityEngine;
 
 public class BulletPlayer : MonoBehaviour
@@ -40,13 +41,13 @@ public class BulletPlayer : MonoBehaviour
     }
 
     IEnumerator TouchMob() 
-{
-    while (canDamage)
     {
-        CurrentMob.GetComponent<MobBehaviour>()
-        yield return new WaitForSeconds(0.1f);
+        while (canDamage)
+        {
+            CurrentMob.gameObject.GetComponent<MobBehaviour>().LoseLife(10);
+            yield return new WaitForSeconds(0.1f);
+        }
+        yield return null;
     }
-    yield return null;
-}
 }
 
