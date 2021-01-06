@@ -6,13 +6,15 @@ using UnityEngine;
 public class BulletPlayer : MonoBehaviour
 {
     public Camera camera;
-
+    public GameObject EndPointLightning;
+    public GameObject Lightning;
     private bool canDamage = false;
     private GameObject CurrentMob;
 
     // Start is called before the first frame update
     void Start()
     {
+        Lightning.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -21,26 +23,28 @@ public class BulletPlayer : MonoBehaviour
         RaycastHit hit;
         int layerMask = 1 << 8;
         layerMask = ~layerMask;
-        
-        if (Physics.Raycast(transform.localPosition, transform.TransformDirection(camera.gameObject.transform.forward), out hit, Mathf.Infinity, layerMask))
+        Ray ray = camera.ViewportPointToRay(new Vector3(0, 0, 200f));
+
+        if (Physics.Raycast(ray, out hit))
         {
             if (hit.transform.tag == "Mob")
             {
-                Debug.DrawRay(transform.localPosition, transform.TransformDirection(camera.gameObject.transform.forward) * hit.distance, Color.yellow);
                 Debug.Log("Did Hit");
                 CurrentMob = hit.transform.gameObject;
                 canDamage = true;
+                EndPointLightning.gameObject.transform.position = hit.transform.gameObject.transform.position;
+                Lightning.gameObject.SetActive(true);
             }
         }
         else
         {
-            Debug.DrawRay(transform.localPosition, transform.TransformDirection(new Vector3(camera.gameObject.transform.position.x, camera.gameObject.transform.position.y, camera.gameObject.transform.position.z + 100)), Color.green);
             canDamage = false;
             CurrentMob = null;
+            Lightning.gameObject.SetActive(false);
         }
     }
 
-    IEnumerator TouchMob() 
+    IEnumerator TouchMob()
     {
         while (canDamage)
         {
