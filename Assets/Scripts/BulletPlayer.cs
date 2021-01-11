@@ -77,11 +77,11 @@ public class BulletPlayer : MonoBehaviour
             T = (startTime - Time.time) * 1.0f;
             child.material.color = Color.Lerp(Color.white, Color.red, T);
         }
-        //yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(5f);
         foreach(Renderer child in allChildren)
         {
             T = (Mathf.Sin(startTime - Time.time) * 1.0f);
-            child.material.color = Color.Lerp(Color.red, Color.white, T);
+            child.material.color = Color.Lerp(Color.white, Color.red, T);
         }
         colorChange = false;
         yield return null;
