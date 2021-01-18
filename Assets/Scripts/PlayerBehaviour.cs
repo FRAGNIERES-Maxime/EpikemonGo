@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Assets.Classes;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerBehaviour : MonoBehaviour
 {
@@ -49,7 +50,7 @@ public class PlayerBehaviour : MonoBehaviour
         currentLife -= value;
         if (currentLife <= 0)
         {
-            gameObject.SetActive(false);
+            SceneManager.LoadScene(0);
         }
     }
 }
