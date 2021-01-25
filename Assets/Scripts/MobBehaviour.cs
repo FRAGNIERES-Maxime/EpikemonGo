@@ -33,6 +33,7 @@ namespace Assets.Classes
         /// Set target of mob
         /// </summary>
         public Transform target;
+        public GameObject Spawner;
 
         #endregion
 
@@ -54,6 +55,7 @@ namespace Assets.Classes
         /// </summary>
         void Start()
         {
+            Spawner = GameObject.Find("Spawner");
             currentLife = initialLife;
             gameObject.transform.localScale = new Vector3(size, size, size);
         }
@@ -65,7 +67,6 @@ namespace Assets.Classes
         {
             transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
             transform.LookAt(target);
-            //transform.Rotate() = new Vector3(transform.eulerAngles.x - 90, transform.eulerAngles.y, transform.eulerAngles.z);
         }
 
         /// <summary>
@@ -86,7 +87,7 @@ namespace Assets.Classes
             currentLife -= value;
             if (currentLife <= 0)
             {
-                //gameObject.SetActive(false);
+                Spawner.GetComponent<WavesBehaviour>().Score += (10 * Spawner.GetComponent<WavesBehaviour>().actualLevel);
                 gameObject.Destroy();
             }
         }

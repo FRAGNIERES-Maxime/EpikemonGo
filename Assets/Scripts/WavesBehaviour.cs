@@ -28,12 +28,14 @@ public class WavesBehaviour : MonoBehaviour
     /// Time (in seconds) between two waves
     /// </summary>
     public int secondsBetweenWave = 15;
+    public float Score = 0f;
 
     #endregion
 
     #region Private props
 
-    private int actualLevel = 1;
+    [HideInInspector]
+    public int actualLevel = 1;
     private DateTime lastSpawnTime;
     private int minimumTimeBetweenWave = 5;
 
