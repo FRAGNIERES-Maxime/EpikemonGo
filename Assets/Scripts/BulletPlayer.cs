@@ -38,8 +38,8 @@ public class BulletPlayer : MonoBehaviour
                 if (currentDamage == false)
                 {
                     StartCoroutine(TouchMob());
-                    if (colorChange == false)
-                        StartCoroutine(ChangeColor(hit.transform.gameObject));
+                    /*if (colorChange == false)
+                        StartCoroutine(ChangeColor(hit.transform.gameObject));*/
                 }
                 Lightning.gameObject.SetActive(true);
             }
@@ -74,15 +74,16 @@ public class BulletPlayer : MonoBehaviour
         float T = Time.time * 1.0f;
         foreach(Renderer child in allChildren)
         {
-            T = (startTime - Time.time) * 1.0f;
-            child.material.color = Color.Lerp(Color.white, Color.red, T);
+            //T = (startTime - Time.time) * 1.0f;
+            child.material.color = Color.Lerp(Color.white, Color.red, 255);
         }
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(0.5f);
         foreach(Renderer child in allChildren)
         {
-            T = (Mathf.Sin(startTime - Time.time) * 1.0f);
-            child.material.color = Color.Lerp(Color.white, Color.red, T);
+            //T = (Mathf.Sin(startTime - Time.time) * 1.0f);
+            child.material.color = Color.Lerp(Color.red, Color.white, 255);
         }
+        yield return new WaitForSeconds(0.5f);
         colorChange = false;
         yield return null;
     }

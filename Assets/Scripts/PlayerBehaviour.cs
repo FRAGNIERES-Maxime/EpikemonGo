@@ -36,7 +36,6 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 LoseLife(mob.GetDamage());
             }
-            //other.gameObject.SetActive(false);
             Destroy(other.gameObject);
         }
     }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
@@ -6,6 +7,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Classes
 {
@@ -42,11 +44,12 @@ namespace Assets.Classes
         /// <summary>
         /// Get initial life
         /// </summary>
-        private int initialLife => (int)(level * 5 * size);
+        private int initialLife => (int)(level * 5000 * size);
         /// <summary>
         /// Get currentLife
         /// </summary>
         private int currentLife { get; set; }
+        private bool death = false;
 
         #endregion
 
@@ -84,12 +87,26 @@ namespace Assets.Classes
         /// <param name="value">Value to lose</param>
         public void LoseLife(int value)
         {
-            currentLife -= value;
-            if (currentLife <= 0)
+            if (currentLife > 0)
+                currentLife -= value;
+            if (death == false && currentLife <= 0)
             {
+                death = true;
                 Spawner.GetComponent<WavesBehaviour>().Score += (10 * Spawner.GetComponent<WavesBehaviour>().actualLevel);
-                gameObject.Destroy();
+                StartCoroutine(deathAnim());
             }
+        }
+
+        IEnumerator deathAnim()
+        {
+            Vector3 size = gameObject.transform.localScale;
+            for (float i = size.x; i > 0; i -= 0.05f)
+            {
+                gameObject.transform.localScale = new Vector3(i, i, i);
+                yield return new WaitForEndOfFrame();
+            }
+            gameObject.Destroy();
+            yield return null;
         }
     }
 }
