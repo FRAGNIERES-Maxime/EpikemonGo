@@ -6,12 +6,13 @@ using UnityEngine.SceneManagement;
 public class StartGame : MonoBehaviour
 {
     public GameObject camera;
+    public GameObject Pikachu;
 
     private bool StartHit;
     private float TimeLeft = 2f;
     void Start()
     {
-        
+        Pikachu.SetActive(false);
     }
 
     // Start is called before the first frame update
@@ -28,6 +29,7 @@ public class StartGame : MonoBehaviour
             {
                 case "Start":
                 StartHit = true;
+                Pikachu.SetActive(true);
                 TimeLeft -= Time.deltaTime;
                 if (TimeLeft <= 0)
                 {
@@ -39,6 +41,7 @@ public class StartGame : MonoBehaviour
         else
         {
             StartHit = false;
+            Pikachu.SetActive(false);
             TimeLeft = 2f;
         }
     }
