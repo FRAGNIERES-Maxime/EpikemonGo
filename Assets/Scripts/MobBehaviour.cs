@@ -44,7 +44,7 @@ namespace Assets.Classes
         /// <summary>
         /// Get initial life
         /// </summary>
-        private int initialLife => (int)(level * 5000 * size);
+        private int initialLife => (int)(level * 10 * size);
         /// <summary>
         /// Get currentLife
         /// </summary>
